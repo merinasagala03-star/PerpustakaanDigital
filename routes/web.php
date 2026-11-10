@@ -42,7 +42,8 @@ Route::middleware('auth')->group(function () {
     });
 
     // ----- Kelola buku lewat halaman web (admin & petugas) -----
-    Route::middleware('permission:kelola-data-buku')->group(function () {
+    // [SOAL 3] Dijaga Gate 'kelola-buku' (menggantikan permission:kelola-data-buku).
+    Route::middleware('can:kelola-buku')->group(function () {
         Route::get('/buku/create', [BukuController::class, 'create'])->name('web.buku.create');
         Route::post('/buku', [BukuController::class, 'store'])->name('web.buku.store');
         Route::get('/buku/{buku}/edit', [BukuController::class, 'edit'])->whereNumber('buku')->name('web.buku.edit');

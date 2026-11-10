@@ -15,7 +15,8 @@ Route::middleware(['web', 'auth'])->group(function () {
         ->middleware('permission:lihat-daftar-buku')->name('buku.show');
 
     // Tambah / ubah / hapus: admin & petugas
-    Route::middleware('permission:kelola-data-buku')->group(function () {
+    // [SOAL 3] Dijaga Gate 'kelola-buku' (menggantikan permission:kelola-data-buku).
+    Route::middleware('can:kelola-buku')->group(function () {
         Route::post('buku', [BukuController::class, 'store'])->name('buku.store');
         Route::match(['put', 'patch'], 'buku/{buku}', [BukuController::class, 'update'])->name('buku.update');
         Route::delete('buku/{buku}', [BukuController::class, 'destroy'])->name('buku.destroy');

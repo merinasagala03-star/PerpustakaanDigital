@@ -6,8 +6,8 @@
     <h2>Daftar Buku</h2>
     <p class="section-note">{{ $bukus->total() }} judul tersedia di katalog.</p>
 
-    {{-- Tombol tambah: hanya admin & petugas (permission kelola-data-buku) --}}
-    @can('kelola-data-buku')
+    {{-- [SOAL 3] Tombol tambah: hanya yang lolos Gate 'kelola-buku' (admin & petugas) --}}
+    @can('kelola-buku')
         <p><a href="{{ route('web.buku.create') }}" class="btn-primary">Tambah Buku</a></p>
     @endcan
 
@@ -34,7 +34,7 @@
                         <td>{{ $buku->tahun_terbit }}</td>
                         <td class="tabel-buku__aksi">
                             <a href="{{ route('web.buku.show', $buku->id) }}" class="btn-ubah">Detail</a>
-                            @can('kelola-data-buku')
+                            @can('kelola-buku')
                                 <a href="{{ route('web.buku.edit', $buku->id) }}" class="btn-ubah">Ubah</a>
                                 {{-- [SOAL 2 - perbaikan A3] DELETE + @csrf + @method('DELETE') --}}
                                 <form method="POST" action="{{ route('web.buku.destroy', $buku->id) }}" class="inline-form"
