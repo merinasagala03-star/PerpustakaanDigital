@@ -62,15 +62,26 @@ class BukuController extends Controller
     }
 
     /**
-     * [SOAL 1 - A2: SQL INJECTION] SENGAJA RENTAN.
-     * Nilai query string 'judul' digabungkan langsung ke string SQL tanpa binding.
+     * [SOAL 2 - perbaikan A2] Query memakai binding (placeholder "?"):
+     * nilai 'judul' dikirim terpisah dari string SQL sebagai DATA, bukan bagian dari perintah SQL.
      */
     public function cari(Request $request): JsonResponse
     {
         $judul = $request->query('judul');
 
-        $hasil = DB::select("SELECT * FROM bukus WHERE judul = '$judul'");
+        $hasil = DB::select('SELECT * FROM bukus WHERE judul = ?', [$judul]);
 
         return response()->json($hasil);
+    }
+
+    /**
+     * [SOAL 2 - perbaikan A3] Penghapusan hanya lewat method DELETE (+ token CSRF),
+     * bukan lewat tautan GET.
+     */
+    public function destroy(Buku $buku): RedirectResponse
+    {
+        $buku->delete();
+
+        return redirect()->route('web.buku.index')->with('status', 'Buku berhasil dihapus.');
     }
 }

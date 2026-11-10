@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Api\BukuController as ApiBukuController;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LaporanController;
@@ -48,18 +47,16 @@ Route::middleware('auth')->group(function () {
         Route::post('/buku', [BukuController::class, 'store'])->name('web.buku.store');
         Route::get('/buku/{buku}/edit', [BukuController::class, 'edit'])->whereNumber('buku')->name('web.buku.edit');
         Route::put('/buku/{buku}', [BukuController::class, 'update'])->whereNumber('buku')->name('web.buku.update');
+        // A3 - penghapusan lewat DELETE (form @csrf + @method('DELETE'))
+        Route::delete('/buku/{buku}', [BukuController::class, 'destroy'])->whereNumber('buku')->name('web.buku.destroy');
     });
 
     // =====================================================================
-    // [SOAL 1] EMPAT CELAH KEAMANAN YANG SENGAJA DIBUAT UNTUK PRAKTIKUM
-    // (A1 ada di view buku/index: {!! !!}). Hanya untuk proyek lokal.
+    // [SOAL 2] Perbaikan celah. Route GET penghapusan (A3) sudah DIHAPUS.
     // =====================================================================
-    // A2 - SQL Injection
+    // A2 - query memakai binding (lihat BukuController::cari)
     Route::get('/buku-cari', [BukuController::class, 'cari'])->name('web.buku.cari');
-    // A3 - CSRF: penghapusan lewat GET tanpa token
-    Route::get('/buku/{buku}/hapus', [ApiBukuController::class, 'destroy'])
-        ->whereNumber('buku')->name('web.buku.hapus');
-    // A4 - IDOR: detail peminjaman tanpa pemeriksaan pemilik
+    // A4 - IDOR: detail peminjaman (otorisasi ditambahkan pada Soal 4)
     Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])
         ->whereNumber('id')->name('peminjaman.show');
 
