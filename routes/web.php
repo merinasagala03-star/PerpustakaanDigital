@@ -53,11 +53,11 @@ Route::middleware('auth')->group(function () {
     });
 
     // =====================================================================
-    // [SOAL 2] Perbaikan celah. Route GET penghapusan (A3) sudah DIHAPUS.
+    // [SOAL 2 & 4] Perbaikan celah. Route GET penghapusan (A3) sudah DIHAPUS.
     // =====================================================================
     // A2 - query memakai binding (lihat BukuController::cari)
     Route::get('/buku-cari', [BukuController::class, 'cari'])->name('web.buku.cari');
-    // A4 - IDOR: detail peminjaman (otorisasi ditambahkan pada Soal 4)
+    // A4 - IDOR: detail peminjaman, diotorisasi PeminjamanPolicy::view lewat Gate::authorize (Soal 4)
     Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])
         ->whereNumber('id')->name('peminjaman.show');
 

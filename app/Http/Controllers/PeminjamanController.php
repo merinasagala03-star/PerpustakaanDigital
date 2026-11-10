@@ -6,17 +6,21 @@ use App\Models\Buku;
 use App\Models\Peminjaman;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class PeminjamanController extends Controller
 {
     /**
-     * [SOAL 1 - A4: IDOR] SENGAJA RENTAN.
-     * Data diambil hanya berdasarkan $id dari URL, tanpa memeriksa pemiliknya.
+     * [SOAL 4 - perbaikan A4] Data tetap diambil dengan findOrFail($id), tetapi SEBELUM
+     * ditampilkan wajib lolos PeminjamanPolicy::view (pemilik, atau admin/petugas).
+     * Selain itu -> 403 Forbidden.
      */
     public function show($id): View
     {
-        $peminjaman = Peminjaman::findOrFail($id);
+        $peminjaman = Peminjaman::with(['anggota', 'buku'])->findOrFail($id);
+
+        Gate::authorize('view', $peminjaman);
 
         return view('peminjaman.show', compact('peminjaman'));
     }
