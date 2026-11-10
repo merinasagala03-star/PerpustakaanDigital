@@ -22,6 +22,12 @@ use Illuminate\Support\Facades\Route;
 // Halaman publik
 Route::view('/', 'home')->name('home');
 
+// [SOAL 5a - SEMENTARA] Dipakai hanya untuk membuktikan halaman error saat APP_DEBUG=false.
+// Route ini DIHAPUS pada commit berikutnya.
+Route::get('/uji-error', function () {
+    throw new \RuntimeException('Uji error Soal 5a - NIM 250441100107');
+});
+
 // Semua route di bawah ini WAJIB login
 Route::middleware('auth')->group(function () {
 
