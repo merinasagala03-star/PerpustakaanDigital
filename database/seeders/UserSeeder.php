@@ -8,15 +8,26 @@ use App\Models\Peminjaman;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
     /**
      * Akun demo. Role ditetapkan di sini (jalur berwenang), bukan dari formulir registrasi.
-     * Semua password demo: "password" — GANTI sebelum dipakai di luar latihan.
+     *
+     * [SOAL 5c] Password akun ADMIN tidak lagi "password". Nilainya dibaca dari variabel
+     * ADMIN_PASSWORD di .env (tidak ikut di-commit). Jika belum diisi, dibuat acak dan
+     * ditampilkan sekali di terminal. Akun petugas & siswa tetap memakai password demo
+     * "password" hanya untuk pengujian lokal.
      */
     public function run(): void
     {
+        $passwordAdmin = env('ADMIN_PASSWORD');
+        if (blank($passwordAdmin)) {
+            $passwordAdmin = Str::random(24);
+            $this->command?->warn("ADMIN_PASSWORD belum diisi di .env. Password admin acak: {$passwordAdmin}");
+        }
+
         $akun = [
             ['Admin Perpustakaan',  'admin@perpustakaan.test',   'admin',   '081200000001'],
             ['Petugas Perpustakaan', 'petugas@perpustakaan.test', 'petugas', '081200000002'],
@@ -40,6 +51,12 @@ class UserSeeder extends Seeder
             );
 
             $user->syncRoles([$role]);
+
+            // [SOAL 5c] Pastikan password admin SELALU diganti, juga pada akun yang sudah ada
+            // di database (firstOrCreate di atas tidak mengubah record yang sudah ada).
+            if ($role === 'admin') {
+                $user->forceFill(['password' => $passwordAdmin])->save();   // cast 'hashed' otomatis bcrypt
+            }
         }
 
         // Contoh riwayat peminjaman agar halaman "riwayat" tidak kosong saat demo.

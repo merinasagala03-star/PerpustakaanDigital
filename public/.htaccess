@@ -5,6 +5,10 @@
 
     RewriteEngine On
 
+    # [SOAL 5b] Blokir akses ke berkas/folder tersembunyi (.env, .git, dst.) -> 403.
+    # Pengecualian: .well-known (dipakai verifikasi sertifikat SSL).
+    RewriteRule (^|/)\.(?!well-known(/|$)) - [F,L]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
