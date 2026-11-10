@@ -124,3 +124,30 @@ Role hanya bisa ditetapkan lewat seeder atau halaman admin `/admin/pengguna`.
 php artisan test
 ```
 `tests/Feature/AuthTest.php` & `tests/Feature/RbacTest.php` mencakup ke-15 skenario soal nomor 5. Lihat `LAPORAN_PENGUJIAN.md`.
+
+---
+
+## Modul 6 — Keamanan Web dan Otorisasi
+
+Audit keamanan (XSS, SQL Injection, CSRF, IDOR), penambalan, Gate, Policy, dan penguatan konfigurasi.
+Riwayat commit: `Persiapan Modul 6`, `Soal 1:` … `Soal 5:` (kondisi rentan ada di commit `Soal 1:`).
+
+| Celah | Perbaikan |
+|---|---|
+| A1 XSS (`{!! !!}`) | `{{ }}` (escaping Blade) |
+| A2 SQL Injection (`/buku-cari`) | `DB::select('... WHERE judul = ?', [$judul])` |
+| A3 CSRF (`GET /buku/{buku}/hapus`) | `DELETE /buku/{buku}` + `@csrf` + `@method('DELETE')`, route GET dihapus |
+| A4 IDOR (`/peminjaman/{id}`) | `PeminjamanPolicy::view` + `Gate::authorize('view', $peminjaman)` |
+
+Gate `kelola-buku` (admin & petugas) dipakai lewat middleware `can:kelola-buku` dan `@can('kelola-buku')`.
+
+### Menjalankan
+```bash
+composer install && npm install && npm run build
+cp .env.example .env && php artisan key:generate
+# isi ADMIN_PASSWORD di .env dengan password yang kuat (password admin tidak lagi "password")
+php artisan migrate:fresh --seed
+php artisan test
+```
+Akun demo: `admin@perpustakaan.test` (password = `ADMIN_PASSWORD`), `petugas@…`, `siswa1@…`, `siswa2@…` (password `password`, hanya untuk uji lokal).
+Berkas `jebakan.html` (Soal 1 A3) disimpan di luar proyek.
