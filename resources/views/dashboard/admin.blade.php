@@ -3,29 +3,46 @@
 @section('title', 'Dashboard Admin')
 
 @section('content')
-    <h2>Dashboard Admin</h2>
-    <p class="section-note">Ringkasan seluruh kebutuhan administrasi perpustakaan.</p>
-
-    <div class="stat-grid">
-        <div class="stat"><span class="stat__angka">{{ $totalBuku }}</span><span class="stat__label">Judul buku</span></div>
-        <div class="stat"><span class="stat__angka">{{ $totalPengguna }}</span><span class="stat__label">Pengguna</span></div>
-        <div class="stat"><span class="stat__angka">{{ $diajukan }}</span><span class="stat__label">Menunggu persetujuan</span></div>
-        <div class="stat"><span class="stat__angka">{{ $dipinjam }}</span><span class="stat__label">Sedang dipinjam</span></div>
-        <div class="stat"><span class="stat__angka">{{ $dikembalikan }}</span><span class="stat__label">Sudah dikembalikan</span></div>
+    <div class="dash-hero">
+        <div>
+            <p class="dash-hero__kicker">{{ now()->translatedFormat('l, d F Y') }}</p>
+            <h2>Halo, {{ auth()->user()->name }}!</h2>
+            <p>Ringkasan seluruh kebutuhan administrasi perpustakaan hari ini.</p>
+        </div>
+        <span class="badge badge--role dash-hero__role">Admin</span>
     </div>
 
-    <h3>Pengguna per role</h3>
-    <ul class="daftar">
-        @foreach ($penggunaPerRole as $role => $jumlah)
-            <li><span class="badge badge--role">{{ $role }}</span> {{ $jumlah }} pengguna</li>
-        @endforeach
-    </ul>
+    <div class="stat-grid">
+        <div class="stat stat--indigo"><span class="stat__ikon"><x-ikon nama="buku" /></span><span class="stat__angka">{{ $totalBuku }}</span><span class="stat__label">Judul buku</span></div>
+        <div class="stat stat--sky"><span class="stat__ikon"><x-ikon nama="pengguna" /></span><span class="stat__angka">{{ $totalPengguna }}</span><span class="stat__label">Pengguna</span></div>
+        <div class="stat stat--amber"><span class="stat__ikon"><x-ikon nama="jam" /></span><span class="stat__angka">{{ $diajukan }}</span><span class="stat__label">Menunggu persetujuan</span></div>
+        <div class="stat stat--blue"><span class="stat__ikon"><x-ikon nama="pinjam" /></span><span class="stat__angka">{{ $dipinjam }}</span><span class="stat__label">Sedang dipinjam</span></div>
+        <div class="stat stat--green"><span class="stat__ikon"><x-ikon nama="cek" /></span><span class="stat__angka">{{ $dikembalikan }}</span><span class="stat__label">Sudah dikembalikan</span></div>
+    </div>
 
-    <p class="menu-cepat">
-        <a class="btn-primary" href="{{ route('web.buku.index') }}">Kelola Buku</a>
-        <a class="btn-primary" href="{{ route('admin.users.index') }}">Kelola Pengguna &amp; Role</a>
-        <a class="btn-primary" href="{{ route('peminjaman.index') }}">Peminjaman</a>
-        <a class="btn-primary" href="{{ route('pengembalian.index') }}">Pengembalian</a>
-        <a class="btn-primary" href="{{ route('laporan.index') }}">Laporan</a>
-    </p>
+    <div class="dash-kolom">
+        @include('dashboard.partials.terbaru')
+
+        <div class="dash-panel">
+            <div class="dash-panel__head"><h3>Pengguna per role</h3></div>
+            @php $maks = max(1, $penggunaPerRole->max()); @endphp
+            <ul class="role-bar">
+                @foreach ($penggunaPerRole as $role => $jumlah)
+                    <li>
+                        <div class="role-bar__baris"><span class="badge badge--role">{{ $role }}</span><strong>{{ $jumlah }}</strong></div>
+                        <div class="role-bar__jalur"><div class="role-bar__isi" style="width: {{ round($jumlah / $maks * 100) }}%"></div></div>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+
+    <h3 class="dash-judul">Menu cepat</h3>
+    <div class="menu-kartu">
+        <a href="{{ route('web.buku.index') }}"><x-ikon nama="buku" /><strong>Kelola Buku</strong><span>Tambah, ubah, hapus katalog</span></a>
+        <a href="{{ route('admin.users.index') }}"><x-ikon nama="pengguna" /><strong>Pengguna &amp; Role</strong><span>Atur akun dan hak akses</span></a>
+        <a href="{{ route('peminjaman.index') }}"><x-ikon nama="pinjam" /><strong>Peminjaman</strong><span>Setujui atau tolak pengajuan</span></a>
+        <a href="{{ route('pengembalian.index') }}"><x-ikon nama="cek" /><strong>Pengembalian</strong><span>Catat buku yang kembali</span></a>
+        <a href="{{ route('laporan.index') }}"><x-ikon nama="laporan" /><strong>Laporan</strong><span>Rekap aktivitas perpustakaan</span></a>
+    </div>
 @endsection

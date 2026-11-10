@@ -100,4 +100,41 @@
     .not-found { text-align: center; padding: 4rem 1rem; }
     .not-found h2 { font-size: 1.6rem; }
     .not-found p { margin: .75rem 0; color: #6b7280; }
+
+    /* ===== Dashboard (admin & petugas) ===== */
+    .dash-hero { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; padding: 1.75rem 2rem; border-radius: 1rem; color: #fff;
+        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 55%, #db2777 120%); box-shadow: 0 10px 25px -10px rgb(79 70 229 / .6); }
+    .dash-hero--petugas { background: linear-gradient(135deg, #0ea5e9 0%, #4f46e5 100%); box-shadow: 0 10px 25px -10px rgb(14 165 233 / .6); }
+    .dash-hero h2 { font-size: 1.75rem; font-weight: 700; margin: .15rem 0 .35rem; color: #fff; }
+    .dash-hero p { color: rgb(255 255 255 / .88); margin: 0; }
+    .dash-hero .dash-hero__kicker { text-transform: uppercase; letter-spacing: .08em; font-size: .72rem; font-weight: 700; color: rgb(255 255 255 / .75); }
+    .dash-hero__role { background: rgb(255 255 255 / .2); color: #fff; padding: .3rem .85rem; font-size: .8rem; }
+    .stat-grid { margin: 1.25rem 0; }
+    .stat { position: relative; overflow: hidden; border: 1px solid #eef0f4; transition: transform .15s, box-shadow .15s; }
+    .stat:hover { transform: translateY(-2px); box-shadow: 0 8px 18px -8px rgb(0 0 0 / .2); }
+    .stat__ikon { width: 2.5rem; height: 2.5rem; border-radius: .65rem; display: flex; align-items: center; justify-content: center; margin-bottom: .75rem; }
+    .stat__ikon .ikon { width: 1.4rem; height: 1.4rem; }
+    .stat--indigo .stat__ikon { background: #e0e7ff; color: #4338ca; } .stat--indigo .stat__angka { color: #4338ca; }
+    .stat--sky .stat__ikon { background: #e0f2fe; color: #0369a1; }    .stat--sky .stat__angka { color: #0369a1; }
+    .stat--amber .stat__ikon { background: #fef3c7; color: #b45309; }  .stat--amber .stat__angka { color: #b45309; }
+    .stat--blue .stat__ikon { background: #dbeafe; color: #1d4ed8; }   .stat--blue .stat__angka { color: #1d4ed8; }
+    .stat--green .stat__ikon { background: #dcfce7; color: #15803d; }  .stat--green .stat__angka { color: #15803d; }
+    .dash-kolom { display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; align-items: start; margin-bottom: 1rem; }
+    @media (max-width: 860px) { .dash-kolom { grid-template-columns: 1fr; } .dash-hero { flex-direction: column; } }
+    .dash-panel { background: #fff; border-radius: .75rem; padding: 1.1rem 1.25rem; border: 1px solid #eef0f4; box-shadow: 0 1px 2px rgb(0 0 0 / .05); margin-bottom: 1rem; }
+    .dash-panel__head { display: flex; justify-content: space-between; align-items: center; margin-bottom: .5rem; }
+    .dash-panel__head h3 { margin: 0; }
+    .dash-panel__head a { font-size: .85rem; text-decoration: none; font-weight: 600; }
+    .tabel-wrap--flat { box-shadow: none; margin-top: .25rem; }
+    .dash-judul { margin-top: 1.25rem; }
+    .role-bar { list-style: none; padding: 0; margin: .5rem 0 0; display: grid; gap: .85rem; }
+    .role-bar__baris { display: flex; justify-content: space-between; align-items: center; margin-bottom: .3rem; }
+    .role-bar__jalur { height: .5rem; background: #eef2ff; border-radius: 9999px; overflow: hidden; }
+    .role-bar__isi { height: 100%; border-radius: 9999px; background: linear-gradient(90deg, #6366f1, #8b5cf6); }
+    .menu-kartu { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 1rem; }
+    .halaman .menu-kartu a { display: flex; flex-direction: column; gap: .25rem; background: #fff; border: 1px solid #eef0f4; border-radius: .75rem; padding: 1rem 1.1rem;
+        text-decoration: none; color: #1f2937; transition: transform .15s, border-color .15s, box-shadow .15s; }
+    .halaman .menu-kartu a:hover { transform: translateY(-2px); border-color: #a5b4fc; box-shadow: 0 8px 18px -8px rgb(79 70 229 / .35); }
+    .menu-kartu .ikon { width: 1.6rem; height: 1.6rem; color: #4f46e5; margin-bottom: .35rem; }
+    .menu-kartu span { color: #6b7280; font-size: .82rem; }
 }

@@ -41,6 +41,7 @@ class DashboardController extends Controller
             'diajukan' => Peminjaman::where('status', Peminjaman::DIAJUKAN)->count(),
             'dipinjam' => Peminjaman::where('status', Peminjaman::DIPINJAM)->count(),
             'dikembalikan' => Peminjaman::where('status', Peminjaman::DIKEMBALIKAN)->count(),
+            'terbaru' => Peminjaman::with(['anggota', 'buku'])->latest('id')->limit(5)->get(),
         ]);
     }
 
@@ -50,6 +51,7 @@ class DashboardController extends Controller
             'totalBuku' => Buku::count(),
             'diajukan' => Peminjaman::where('status', Peminjaman::DIAJUKAN)->count(),
             'dipinjam' => Peminjaman::where('status', Peminjaman::DIPINJAM)->count(),
+            'terbaru' => Peminjaman::with(['anggota', 'buku'])->latest('id')->limit(5)->get(),
         ]);
     }
 }
