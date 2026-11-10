@@ -137,4 +137,28 @@
     .halaman .menu-kartu a:hover { transform: translateY(-2px); border-color: #a5b4fc; box-shadow: 0 8px 18px -8px rgb(79 70 229 / .35); }
     .menu-kartu .ikon { width: 1.6rem; height: 1.6rem; color: #4f46e5; margin-bottom: .35rem; }
     .menu-kartu span { color: #6b7280; font-size: .82rem; }
+
+    /* ===== Beranda ===== */
+    .home-hero { position: relative; overflow: hidden; display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; padding: 3rem 2.5rem; border-radius: 1.25rem; color: #fff;
+        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 55%, #db2777 120%); box-shadow: 0 18px 40px -18px rgb(79 70 229 / .7); }
+    .home-hero__teks { max-width: 38rem; position: relative; z-index: 1; }
+    .home-hero .home-hero__kicker { text-transform: uppercase; letter-spacing: .12em; font-size: .75rem; font-weight: 700; color: rgb(255 255 255 / .75); margin: 0; }
+    .home-hero h2 { font-size: 2.2rem; line-height: 1.2; font-weight: 800; margin: .6rem 0 1rem; color: #fff; }
+    .home-hero p { color: rgb(255 255 255 / .9); line-height: 1.65; }
+    .home-hero__aksi { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+    .halaman .btn-hero { display: inline-block; padding: .65rem 1.3rem; border-radius: .6rem; font-weight: 700; font-size: .95rem; text-decoration: none; transition: transform .15s, box-shadow .15s; }
+    .halaman .btn-hero:hover { transform: translateY(-2px); }
+    .halaman .btn-hero--utama { background: #fff; color: #4338ca; box-shadow: 0 6px 16px -6px rgb(0 0 0 / .4); }
+    .halaman .btn-hero--garis { border: 2px solid rgb(255 255 255 / .7); color: #fff; }
+    .halaman .btn-hero--garis:hover { background: rgb(255 255 255 / .15); }
+    .home-hero__rak { display: flex; align-items: flex-end; gap: .45rem; height: 11rem; opacity: .95; }
+    .home-hero__rak span { display: block; width: 1.7rem; height: var(--t); background: var(--c); border-radius: .3rem .3rem .1rem .1rem; box-shadow: inset -4px 0 0 rgb(0 0 0 / .12); }
+    .home-hero__rak span:nth-child(even) { transform: rotate(-3deg); }
+    @media (max-width: 760px) { .home-hero { flex-direction: column; align-items: flex-start; padding: 2rem 1.5rem; } .home-hero h2 { font-size: 1.7rem; } .home-hero__rak { height: 6rem; } }
+    .home-fitur { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+    .home-fitur__kartu { display: flex; flex-direction: column; gap: .35rem; background: #fff; border: 1px solid #eef0f4; border-radius: .85rem; padding: 1.25rem; box-shadow: 0 1px 2px rgb(0 0 0 / .05); transition: transform .15s, box-shadow .15s; }
+    .home-fitur__kartu:hover { transform: translateY(-3px); box-shadow: 0 10px 20px -10px rgb(79 70 229 / .35); }
+    .home-fitur__kartu span:last-child { color: #6b7280; font-size: .88rem; }
+    .home-fitur__ikon { width: 2.6rem; height: 2.6rem; border-radius: .7rem; background: #e0e7ff; color: #4338ca; display: flex; align-items: center; justify-content: center; margin-bottom: .4rem; }
+    .home-fitur__ikon .ikon { width: 1.4rem; height: 1.4rem; }
 }
