@@ -10,6 +10,17 @@ use Illuminate\View\View;
 
 class PeminjamanController extends Controller
 {
+    /**
+     * [SOAL 1 - A4: IDOR] SENGAJA RENTAN.
+     * Data diambil hanya berdasarkan $id dari URL, tanpa memeriksa pemiliknya.
+     */
+    public function show($id): View
+    {
+        $peminjaman = Peminjaman::findOrFail($id);
+
+        return view('peminjaman.show', compact('peminjaman'));
+    }
+
     /** Daftar seluruh peminjaman (staf). Permission: kelola-peminjaman. */
     public function index(Request $request): View
     {

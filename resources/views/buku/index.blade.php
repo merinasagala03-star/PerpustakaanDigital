@@ -28,13 +28,17 @@
                     <tr>
                         <td>{{ $bukus->firstItem() + $loop->index }}</td>
                         <td>{{ $buku->kategori->nama ?? '-' }}</td>
-                        <td>{{ $buku->judul }}</td>
+                        {{-- [SOAL 1 - A1: XSS] SENGAJA RENTAN: {!! !!} tidak melakukan escaping --}}
+                        <td>{!! $buku->judul !!}</td>
                         <td>{{ $buku->penulis }}</td>
                         <td>{{ $buku->tahun_terbit }}</td>
                         <td class="tabel-buku__aksi">
                             <a href="{{ route('web.buku.show', $buku->id) }}" class="btn-ubah">Detail</a>
                             @can('kelola-data-buku')
                                 <a href="{{ route('web.buku.edit', $buku->id) }}" class="btn-ubah">Ubah</a>
+                                {{-- [SOAL 1 - A3] tautan GET untuk menghapus (rentan CSRF) --}}
+                                <a href="{{ route('web.buku.hapus', $buku->id) }}" class="btn-hapus"
+                                   onclick="return confirm('Hapus buku ini?')">Hapus</a>
                             @endcan
                         </td>
                     </tr>

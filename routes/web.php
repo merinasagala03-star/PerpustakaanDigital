@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Api\BukuController as ApiBukuController;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LaporanController;
@@ -48,6 +49,19 @@ Route::middleware('auth')->group(function () {
         Route::get('/buku/{buku}/edit', [BukuController::class, 'edit'])->whereNumber('buku')->name('web.buku.edit');
         Route::put('/buku/{buku}', [BukuController::class, 'update'])->whereNumber('buku')->name('web.buku.update');
     });
+
+    // =====================================================================
+    // [SOAL 1] EMPAT CELAH KEAMANAN YANG SENGAJA DIBUAT UNTUK PRAKTIKUM
+    // (A1 ada di view buku/index: {!! !!}). Hanya untuk proyek lokal.
+    // =====================================================================
+    // A2 - SQL Injection
+    Route::get('/buku-cari', [BukuController::class, 'cari'])->name('web.buku.cari');
+    // A3 - CSRF: penghapusan lewat GET tanpa token
+    Route::get('/buku/{buku}/hapus', [ApiBukuController::class, 'destroy'])
+        ->whereNumber('buku')->name('web.buku.hapus');
+    // A4 - IDOR: detail peminjaman tanpa pemeriksaan pemilik
+    Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])
+        ->whereNumber('id')->name('peminjaman.show');
 
     // ----- Mengajukan peminjaman (semua role) -----
     Route::post('/buku/{buku}/pinjam', [PeminjamanController::class, 'ajukan'])
