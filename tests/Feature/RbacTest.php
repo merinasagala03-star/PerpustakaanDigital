@@ -349,12 +349,12 @@ class RbacTest extends TestCase
         $petugas = $this->user('petugas');
 
         $this->actingAs($siswa)->get('/buku')->assertOk()
-            ->assertDontSee('id="form-buku"', false)
-            ->assertSee('const BISA_KELOLA = false', false);
+            ->assertDontSee('Tambah Buku')
+            ->assertDontSee('/edit', false);
 
         $this->actingAs($petugas)->get('/buku')->assertOk()
-            ->assertSee('id="form-buku"', false)
-            ->assertSee('const BISA_KELOLA = true', false);
+            ->assertSee('Tambah Buku')
+            ->assertSee('/edit', false);
     }
 
     public function test_menu_sesuai_role_dengan_direktif_can(): void

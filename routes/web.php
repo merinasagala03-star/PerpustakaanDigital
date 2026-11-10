@@ -41,6 +41,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/buku/{id}', [BukuController::class, 'show'])->whereNumber('id')->name('web.buku.show');
     });
 
+    // ----- Kelola buku lewat halaman web (admin & petugas) -----
+    Route::middleware('permission:kelola-data-buku')->group(function () {
+        Route::get('/buku/create', [BukuController::class, 'create'])->name('web.buku.create');
+        Route::post('/buku', [BukuController::class, 'store'])->name('web.buku.store');
+        Route::get('/buku/{buku}/edit', [BukuController::class, 'edit'])->whereNumber('buku')->name('web.buku.edit');
+        Route::put('/buku/{buku}', [BukuController::class, 'update'])->whereNumber('buku')->name('web.buku.update');
+    });
+
     // ----- Mengajukan peminjaman (semua role) -----
     Route::post('/buku/{buku}/pinjam', [PeminjamanController::class, 'ajukan'])
         ->whereNumber('buku')
