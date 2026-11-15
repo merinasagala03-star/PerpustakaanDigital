@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <title>Selamat! Anda Terpilih</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #fff7e6; text-align: center; padding-top: 120px; }
+        a { font-size: 22px; }
+    </style>
+</head>
+<body>
+    <h1>Selamat! Anda memenangkan hadiah buku gratis</h1>
+    <!--
+        JEBAKAN CSRF (Soal 1 - A3). Berkas ini disimpan DI LUAR proyek Laravel.
+        Satu tautan ke URL penghapusan buku (id 7). Jika korban sedang login sebagai
+        admin/petugas, browser otomatis menyertakan cookie sesi sehingga buku terhapus.
+        Sesuaikan host (perpustakaan.test) dan id buku dengan proyek lokal Anda.
+    -->
+    <p><a href="http://perpustakaan.test/buku/7/hapus">Klik di sini untuk klaim hadiah</a></p>
+</body>
+</html>
