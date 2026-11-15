@@ -9,6 +9,7 @@ use App\Policies\UserPolicy;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL; // <-- 1. TAMBAHKAN BARIS INI
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,11 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        // <-- 2. TAMBAHKAN KODE INI UNTUK MENGATASI CSS TERBLOKIR DI VERCEL
+        if (env('APP_ENV') !== 'local') {
+            URL::forceScheme('https');
+        }
+
         Gate::policy(User::class, UserPolicy::class);
         Gate::policy(Peminjaman::class, PeminjamanPolicy::class);   // [SOAL 4]
 
